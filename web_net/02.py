@@ -6,7 +6,7 @@ import urllib2
 def getURL(str):
 	start = str.find(r'href=')
 	start += 6
-	end   = str.find(r'.html')
+	end = str.find(r'.html')
 	end   += 5
 	url = str[start : end]
 	return url

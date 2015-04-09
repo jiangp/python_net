@@ -15,14 +15,14 @@ cur.execute("DROP TABLE msg")
 sql = " CREATE TABLE msg(Page INT, Tim VARCHAR (20), Msg TEXT (10240000))"
 cur.execute(sql)
 
-#----------- 加载处理糗事百科 -----------
+
 class Spider_Model:
     def __init__(self):
         self.page = 1
         self.pages = []
         self.enable = False
 
-    # 将所有的段子都扣出来，添加到列表中并且返回列表
+    # 将所有的内容都扣出来，添加到列表中并且返回列表
     def GetPage(self, page):
         myUrl = "http://m.qiushibaike.com/hot/page/" + page
         user_agent = 'Mozilla/4.0 (compatible; MSIE 5.5; Windows NT)'
