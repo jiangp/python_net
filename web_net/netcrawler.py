@@ -7,15 +7,20 @@ import thread
 import time
 import MySQLdb
 
+
+# 打开文件存入文件操作
 #f = open('1.txt', 'w+')
 
-db = MySQLdb.connect(host='localhost', user='root', passwd='666', db='pyChaim_SQL', charset='utf8')
+
+#连接Mysql数据库， 删除已有同名表， 建立新表
+db  = MySQLdb.connect(host='localhost', user='root', passwd='666', db='pyChaim_SQL', charset='utf8')
 cur = db.cursor()
 cur.execute("DROP TABLE msg")
 sql = " CREATE TABLE msg(Page INT, Tim VARCHAR (20), Msg TEXT (10240000))"
 cur.execute(sql)
 
 
+#建立操作类
 class Spider_Model:
     def __init__(self):
         self.page = 1
@@ -56,21 +61,28 @@ class Spider_Model:
                     self.page += 1
                     self.pages.append(myPage)
                 except:
-                    print '无法链接。。。。！'
+                    print '无法链接...！'
             else:
                 time.sleep(1)
+
+
 
     # 保存和 展示
     def ShowPage(self, nowPage, page):
         for items in nowPage:
+
+			#写进文档#
             #  f.writelines(str(line.encode('utf')))
-           # f.writelines('\n')
+            #  f.writelines('\n')
+
+			#写入sql 数据库#
             sql1 = ('INSERT INTO msg(Page, Tim, Msg) VALUES("%d", "%s", "%s")' % (page, items[0], items[1]))
             try:
                 cur.execute(sql1)
                 db.commit()
             except:
                 db.rollback()
+			#现实存入的内容#
             print u'第%d页' % page, items[0], items[1]
 
             myInput =raw_input()
@@ -78,7 +90,8 @@ class Spider_Model:
                 self.enable = False
                 db.close()
                 break
-    #开始
+  
+    #开始执行
     def Start(self):
         self.enable = True
         page = self.page
@@ -88,7 +101,7 @@ class Spider_Model:
         # 新建一个线程在后台加载内容并存储
         thread.start_new_thread(self.LoadPage, ()) #  调用LoadPage
 
-        #----------- 加载 处理-----------
+        #加载 处理
         while self.enable:
             # 如果self的page数组中存有元素
             if self.pages:
@@ -98,14 +111,10 @@ class Spider_Model:
                 page += 1
 
 
+
 #----------- 程序的入口处 -----------
 print u"""
 ---------------------------------------
-   程序：网络爬虫
-   版本：1
-   作者：who
-   日期：2015-3-21
-   语言：Python 2.79
    操作：输入 q 退出阅读
    功能：按下回车依次浏览今日的热点
 ---------------------------------------
