@@ -35,7 +35,7 @@
 ###class 
 #class C:
 #	count = 0;
-#	def __init__(self):
+#	def __init__(self): # the init function 
 #		C.count += 1
 #		self.instanceCount = C.count
 #def 
