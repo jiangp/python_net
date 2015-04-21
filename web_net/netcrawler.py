@@ -13,7 +13,7 @@ import MySQLdb
 
 
 #连接Mysql数据库， 删除已有同名表， 建立新表
-db  = MySQLdb.connect(host='localhost', user='root', passwd='666', db='pyChaim_SQL', charset='utf8')
+db = MySQLdb.connect(host='localhost', user='root', passwd='666', db='pyChaim_SQL', charset='utf8')
 cur = db.cursor()
 cur.execute("DROP TABLE msg")
 sql = " CREATE TABLE msg(Page INT, Tim VARCHAR (20), Msg TEXT (10240000))"
